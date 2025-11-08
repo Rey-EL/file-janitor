@@ -1,31 +1,59 @@
 # FileJanitor
 
-## Description
+FileJanitor is a Python utility script designed to clean and organize folders by identifying and removing duplicate files and empty directories. It uses a graphical interface for folder selection and provides clear terminal output, making it a safe and user-friendly tool for disk cleanup.
 
-This is a Python utility script designed to clean and organize a folder by identifying and removing duplicate files and empty folders. It's built to be safe, interactive, and efficient.
+---
 
-## Core Features
+## Key Features
 
-*   **Finds Duplicates:** Scans a target directory and all its subdirectories to find duplicate files.
-*   **SHA-256 Hashing:** Uses secure SHA-256 hashing to accurately identify duplicates based on their content, not just their names.
-*   **Smart Deletion:** When duplicates are found, the script keeps the newest version of the file (based on modification time) and prompts to delete the older copies.
-*   **Safe by Default:** Includes a "Backup" folder protection rule, preventing the script from deleting any file that has "backup" in its path.
-*   **Finds Empty Folders:** Recursively searches for and identifies folders that are completely empty (or only contain empty subfolders).
+*   **Finds Duplicate Files:** Scans a target directory and all its subdirectories to find files with identical content, regardless of their name.
+*   **Accurate Hashing:** Uses the secure SHA-256 hashing algorithm to accurately identify true duplicates based on content.
+*   **Smart Deletion Logic:** When duplicates are found, the script automatically identifies the newest version of the file (by modification date) to keep and flags the older copies for deletion.
+*   **Finds Empty Folders:** Recursively searches for and identifies folders that are completely empty.
+*   **Safety First:**
+    *   Prompts the user for a single confirmation before deleting all flagged files and another before deleting empty folders. No action is taken without approval.
+    *   Includes a "backup" folder protection rule, preventing the script from deleting any file located in a path containing the word "backup".
+*   **User-Friendly Interface:**
+    *   Uses `tkinter` for a simple graphical dialog to select the target folder.
+    *   Displays a `tqdm` progress bar during the file scanning process.
+*   **Detailed Logging:** Generates a comprehensive `FileJanitor_log_...txt` report in the script's directory, detailing all actions taken, files deleted, and any errors encountered.
 
-## User-Friendly
+---
 
-*   Uses `tkinter` to provide a graphical folder selection dialog at the start.
-*   Uses `tqdm` to show a live progress bar during the file-scanning phase.
-*   Prompts the user with a single "y/n" confirmation before deleting all found duplicates and all empty folders.
+## Installation & Setup
 
-## Logging
+To use FileJanitor, you need Python 3.
 
-*   Generates a complete `FileJanitor_log_...txt` report detailing all actions taken, files deleted, and errors encountered.
+1.  **Navigate to the project directory:**
+    ```bash
+    cd file-janitor
+    ```
 
-## How to Use
+2.  **Install dependencies:**
+    It's highly recommended to use a virtual environment to manage project dependencies.
+    ```bash
+    # Create and activate a virtual environment (optional but recommended)
+    python3 -m venv venv
+    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
-1.  Run the script from your terminal: `python3 FileJanitor.py`
-2.  A dialog box will appear. Select the folder you wish to scan.
-3.  The script will scan for duplicates and empty folders.
-4.  Review the findings and answer the (y/n) prompts to approve deletions.
-5.  A final log file will be saved in the same directory where the script was run.
+    # Install the required packages from the requirements.txt file
+    pip install -r requirements.txt
+    ```
+
+---
+
+## Usage
+
+1.  **Run the script from your terminal:**
+    ```bash
+    python3 FileJanitor.py
+    ```
+
+2.  **Select a Folder:** A graphical dialog box will appear. Navigate to and select the folder you wish to scan.
+
+3.  **Review and Confirm:** The script will scan the directory and then present its findings. It will prompt you to approve the deletion of old duplicate files and empty folders separately.
+    ```
+    Do you want to delete all 15 of these files? (y/n): y
+    ```
+
+4.  **Check the Log:** After the script finishes, a log file named `FileJanitor_log_...txt` will be created in the same directory. You can review it for a detailed record of all operations.
