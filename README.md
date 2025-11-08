@@ -46,7 +46,7 @@ To use FileJanitor, you need Python 3.
 
 1.  **Run the script from your terminal:**
     ```bash
-    python3 FileJanitor.py
+    python3 file_janitor.py
     ```
 
 2.  **Select a Folder:** A graphical dialog box will appear. Navigate to and select the folder you wish to scan.
