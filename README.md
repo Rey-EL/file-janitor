@@ -1,4 +1,4 @@
-# FileJanitor
+# file-janitor
 
 FileJanitor is a Python utility script designed to clean and organize folders by identifying and removing duplicate files and empty directories. It uses a graphical interface for folder selection and provides clear terminal output, making it a safe and user-friendly tool for disk cleanup.
 
