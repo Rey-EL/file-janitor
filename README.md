@@ -16,7 +16,7 @@ FileJanitor is a Python utility script designed to clean and organize folders by
 *   **User-Friendly Interface:**
     *   Uses `tkinter` for a simple graphical dialog to select the target folder.
     *   Displays a `tqdm` progress bar during the file scanning process.
-*   Detailed Logging: Generates a comprehensive `FileJanitor_log_...txt` report in the script's directory, detailing all actions taken, files deleted, and any errors encountered.
+*   **Detailed Logging:** Generates a comprehensive `FileJanitor_log_...txt` report in the script's directory, detailing all actions taken, files deleted, and any errors encountered.
 
 ---
 
@@ -27,6 +27,18 @@ FileJanitor is a local utility script and does not interact with networks or ext
 *   **Backup Important Data:** Before running any file management utility, ensure critical data is backed up.
 *   **Understand File Operations:** Be aware of the files being processed and confirmed for deletion.
 *   **Keep System Updated:** Ensure your operating system and Python environment are kept up-to-date with the latest security patches.
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+---
+
+## Contributing
+
+Contributions are welcome! If you have suggestions for improvements, bug reports, or want to add new features, please feel free to open an issue or submit a pull request.
 
 ---
 
