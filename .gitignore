@@ -47,7 +47,6 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
-*.py,cover
 .hypothesis/
 .pytest_cache/
 
@@ -84,8 +83,12 @@ ipython_config.py
 # pyenv
 .python-version
 
-# celery beat schedule file
+# PEP 582; used by PDM, PEP 582 compatible tools
+__pypackages__/
+
+# Celery stuff
 celerybeat-schedule
+celerybeat.pid
 
 # SageMath parsed files
 *.sage.py
