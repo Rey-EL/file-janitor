@@ -1,81 +1,50 @@
 # file-janitor
 
-FileJanitor is a Python utility script designed to clean and organize folders by identifying and removing duplicate files and empty directories. It uses a graphical interface for folder selection and provides clear terminal output, making it a safe and user-friendly tool for disk cleanup.
+I wrote this to clean out folders full of duplicate files without hunting them down by hand.
 
----
+![CI](https://github.com/Rey-EL/file-janitor/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-## Key Features
+## Features
 
-*   **Finds Duplicate Files:** Scans a target directory and all its subdirectories to find files with identical content, regardless of their name.
-*   **Accurate Hashing:** Uses the secure SHA-256 hashing algorithm to accurately identify true duplicates based on content.
-*   **Smart Deletion Logic:** When duplicates are found, the script automatically identifies the newest version of the file (by modification date) to keep and flags the older copies for deletion.
-*   **Finds Empty Folders:** Recursively searches for and identifies folders that are completely empty.
-*   **Safety First:**
-    *   Prompts the user for a single confirmation before deleting all flagged files and another before deleting empty folders. No action is taken without approval.
-    *   Includes a "backup" folder protection rule, preventing the script from deleting any file located in a path containing the word "backup".
-*   **User-Friendly Interface:**
-    *   Uses `tkinter` for a simple graphical dialog to select the target folder.
-    *   Displays a `tqdm` progress bar during the file scanning process.
-*   **Detailed Logging:** Generates a comprehensive `FileJanitor_log_...txt` report in the script's directory, detailing all actions taken, files deleted, and any errors encountered.
+- Finds duplicates by SHA-256 content hash, not by filename
+- Finds folders that are completely empty, including nested ones
+- Keeps the newest copy of each duplicate set (by modification time); only older copies are proposed for deletion
+- Never touches files in a path containing "backup"
+- Asks for one confirmation before deleting duplicates, and another before deleting empty folders
+- Writes a timestamped log of everything it did
 
----
+## Install
 
-## Security Considerations
-
-FileJanitor is a local utility script and does not interact with networks or external services, which means it is not directly susceptible to many common web-based vulnerabilities like those in the OWASP Top 10. However, users should always:
-
-*   **Backup Important Data:** Before running any file management utility, ensure critical data is backed up.
-*   **Understand File Operations:** Be aware of the files being processed and confirmed for deletion.
-*   **Keep System Updated:** Ensure your operating system and Python environment are kept up-to-date with the latest security patches.
-
----
-
-## License
-
-This project is licensed under the [MIT License](./LICENSE.md) - see the LICENSE.md file for details.
-
----
-
-## Contributing
-
-Contributions are welcome! If you have suggestions for improvements, bug reports, or want to add new features, please feel free to open an issue or submit a pull request.
-
----
-
-## Installation & Setup
-
-To use FileJanitor, you need Python 3.
-
-1.  **Navigate to the project directory:**
-    ```bash
-    cd file-janitor
-    ```
-
-2.  **Install dependencies:**
-    It's highly recommended to use a virtual environment to manage project dependencies.
-    ```bash
-    # Create and activate a virtual environment (optional but recommended)
-    python3 -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-
-    # Install the required packages from the requirements.txt file
-    pip install -r requirements.txt
-    ```
-
----
+```bash
+git clone https://github.com/Rey-EL/file-janitor.git
+cd file-janitor
+pip install -r requirements.txt
+```
 
 ## Usage
 
-1.  **Run the script from your terminal:**
-    ```bash
-    python3 file_janitor.py
-    ```
+```bash
+python3 file_janitor.py
+```
 
-2.  **Select a Folder:** A graphical dialog box will appear. Navigate to and select the folder you wish to scan.
+Pick a folder in the dialog, review the findings, answer `y`/`n` for each cleanup step. A `FileJanitor_log_*.txt` report is written next to the script when it finishes.
 
-3.  **Review and Confirm:** The script will scan the directory and then present its findings. It will prompt you to approve the deletion of old duplicate files and empty folders separately.
-    ```
-    Do you want to delete all 15 of these files? (y/n): y
-    ```
+## How it works
 
-4.  **Check the Log:** After the script finishes, a log file named `FileJanitor_log_...txt` will be created in the same directory. You can review it for a detailed record of all operations.
+The tool walks the folder, hashes every non-empty file with SHA-256, and groups identical hashes. The most recently modified file in each group is the keeper. Empty folders are found with a bottom-up walk so nested empties are caught. Tests live in `tests/` and run on Python 3.10–3.12 in CI.
+
+## Project structure
+
+```
+file-janitor/
+├── file_janitor.py            # the tool
+├── requirements.txt
+├── tests/                     # pytest suite (pure functions only)
+└── .github/workflows/ci.yml  # CI workflow
+```
+
+## License
+
+MIT — see [LICENSE.md](LICENSE.md).
