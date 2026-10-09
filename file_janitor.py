@@ -9,13 +9,13 @@ import tkinter as tk
 from tkinter import filedialog
 from collections import defaultdict
 from datetime import datetime
-from typing import Dict, List, Set
+from typing import Dict, List, Optional, Set
 from tqdm import tqdm
 
 # --- Part 1: Core Scanning Functions ---
 
-def hash_file(path: str, blocksize: int = 65536) -> str:
-    """Calculates the SHA-256 hash of a file."""
+def hash_file(path: str, blocksize: int = 65536) -> Optional[str]:
+    """Calculates the SHA-256 hash of a file. Returns None if the file cannot be read."""
     hasher = hashlib.sha256()
     try:
         with open(path, 'rb') as f:
@@ -32,7 +32,7 @@ def find_duplicates(folder: str) -> Dict[str, List[str]]:
     print("\n🔎 Searching for duplicate files...")
     all_files = []
     for dirpath, dirnames, filenames in os.walk(folder):
-        # NEW RULE: Prevent the script from scanning its own project folder
+        # Skip this tool's own project folder so it never scans itself
         if 'filejanitor' in os.path.normcase(dirpath):
             continue
         for filename in filenames:
